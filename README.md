@@ -1,6 +1,10 @@
 # Marlin 3D Printer Firmware for Flying Bear 4S
 
-Это конфигурация [официального Marlin](https://github.com/MarlinFirmware/Marlin) для принтера Flying Bear 4S. Изменения кода коснулись только в части добавления работы с экраном. Код работы с экраном взят из репозитария [inib/Marlin](https://github.com/inib/Marlin) На данной версии **не работает WIFI модуль** Эскпериментальный вариант работы с WIFI находится в ветке FB4S_WIFI
+Это конфигурация [официального Marlin](https://github.com/MarlinFirmware/Marlin) для принтера Flying Bear 4S.
+
+ Изменения кода коснулись только в части добавления работы с экраном. Код работы с экраном взят из репозитория [inib/Marlin](https://github.com/inib/Marlin)
+ 
+ На данной версии **не работает WIFI модуль**. Вариант работы с WIFI находится в ветке FB4S_WIFI
 
 ## Что нужно настроить
 
