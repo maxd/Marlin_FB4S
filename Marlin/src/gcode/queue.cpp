@@ -437,12 +437,13 @@ void GCodeQueue::get_serial_commands() {
     /* Если данные в Serial1 пропускаем через парсер 
     бинарного протокола. Текстовую часть с G-Code пропускаем
     дальше */
+    #ifdef MKS_WIFI
      if(i == MKS_WIFI_SERIAL_NUM){
         if(mks_wifi_input(c)){
           continue;
         };
       }
-
+    #endif
       if (ISEOL(serial_char)) {
         // Reset our state, continue if the line was empty
         if (process_line_done(serial_input_state[i], serial_line_buffer[i], serial_count[i]))

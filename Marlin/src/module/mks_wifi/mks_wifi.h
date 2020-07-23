@@ -16,12 +16,29 @@
 
 #define LIST_FILES_AT_STARTUP		(uint8_t)1
 
+#define IP_ADDR_LEN		16
+#define WIFI_NET_LEN	100
+
+
+enum wifi_status{
+    WIFI_WAITING, 
+    WIFI_READY
+};
+
+
 typedef struct
 {
 	uint8_t type; 
 	uint16_t dataLen;
 	uint8_t *data; 
 } ESP_PROTOC_FRAME;
+
+struct wifi_status_t {
+	uint8_t status; 
+	char ip_addr[16];
+	char wifi_net[100];
+};
+
 
 #define ESP_PROTOC_HEAD				(uint8_t)0xa5
 #define ESP_PROTOC_TAIL				(uint8_t)0xfc
@@ -40,6 +57,7 @@ typedef struct
 
 #define NOP	__asm volatile ("nop")
 
+extern volatile struct wifi_status_t wifi_status;
 
 void mks_wifi_init(void);
 

@@ -7,12 +7,15 @@
 #include "../../sd/cardreader.h"
 #include "small_cmsis.h"
 
+#include "../shared_mem/shared_mem.h"
 
 #define ESP_PACKET_SIZE     1024
-#define ESP_FILE_BUFF_COUNT 8
+#define ESP_FILE_BUFF_COUNT 4
 
-#define DATA_SIZE 16*1024
-#define WRITE_COUNT 255
+extern volatile uint8_t *dma_buff1;
+extern volatile uint8_t *dma_buff2;
+
+void mks_wifi_sd_ls(void);
 
 void mks_wifi_sd_ls(void);
 

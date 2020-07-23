@@ -1,28 +1,24 @@
 #include "mks_wifi_sd.h"
-
+#ifdef MKS_WIFI
 #include "../../lcd/ultralcd.h"
-#include "../../libs/fatfs/ff.h"
+#include "../../libs/fatfs/fatfs_shared.h"
 #include "../../libs/buzzer.h"  
 #include "../temperature.h"
 
-FRESULT result;
-FATFS FATFS_Obj;
 FIL upload_file;
 
-volatile uint8_t __attribute__ ((aligned (4))) file_buff[ESP_PACKET_SIZE*ESP_FILE_BUFF_COUNT];
+volatile uint8_t *file_buff=shared_mem;
 volatile uint8_t *file_buff_pos;
 volatile uint16_t file_data_size;
 
-volatile uint8_t __attribute__ ((aligned (4))) dma_buff1[ESP_PACKET_SIZE];
-volatile uint8_t __attribute__ ((aligned (4))) dma_buff2[ESP_PACKET_SIZE];
+volatile uint8_t *dma_buff1=shared_mem+SHARED_MEM_SIZE-2048;
+volatile uint8_t *dma_buff2=shared_mem+SHARED_MEM_SIZE-1024;
 volatile uint8_t *dma_buff[] = {dma_buff1,dma_buff2};
 volatile uint8_t dma_buff_index=0;
 volatile uint8_t *buff;
 
 void mks_wifi_sd_ls(void){
-    FRESULT res;
     DIR dir;
-    static FILINFO fno;
 
     res = f_opendir(&dir, "0:");                       /* Open the directory */
     if (res == FR_OK) {
@@ -40,8 +36,8 @@ void mks_wifi_sd_ls(void){
 void mks_wifi_sd_init(void){
    CardReader::release();
 
-   result = f_mount((FATFS *)&FATFS_Obj, "0", 1);
-   DEBUG("SD init result:%d",result);
+   res = f_mount((FATFS *)&FATFS_Obj, "0", 1);
+   DEBUG("SD init result:%d",res);
 
 }
 
@@ -313,3 +309,4 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet){
    thermalManager.setTargetHotend(save_e0,0);
 
 }
+#endif

@@ -85,9 +85,14 @@
 // Temperature Sensors
 //
 #define TEMP_0_PIN                          PC1   // TH1
-#define TEMP_1_PIN                          PC2   // TH2
 #define TEMP_BED_PIN                        PC0   // TB1
 
+//Термистор на корпусе
+#if TEMP_SENSOR_CHAMBER > 0
+#define TEMP_CHAMBER_PIN                    PC2
+#else
+#define TEMP_1_PIN                          PC2   // TH2
+#endif
 //
 // Heaters / Fans
 //
@@ -130,9 +135,19 @@
  * If the screen stays white, disable 'LCD_RESET_PIN'
  * to let the bootloader init the screen.
  */
-#if ENABLED(FSMC_GRAPHICAL_TFT)
+
+#define TFT_LITTLE_VGL_UI   1
+
+#if ENABLED(TFT_LITTLE_VGL_UI)
+  #undef HAS_GRAPHICAL_LCD
+  #undef  FSMC_GRAPHICAL_TFT
+  #undef  HAS_DISPLAY
+  #undef  HAS_SPI_LCD
+  #undef  LCD_BED_LEVELING
+  #define HAS_RESUME_CONTINUE 1
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0
+  #define TOUCH_CS_PIN                      PA7   // SPI2_NSS
 
   //#define LCD_RESET_PIN                     PC6   // FSMC_RST
   #define NO_LCD_REINIT                           // Suppress LCD re-initialization
@@ -149,18 +164,27 @@
     #define TOUCH_MISO_PIN                  PB14  // SPI2_MISO
     #define TOUCH_MOSI_PIN                  PB15  // SPI2_MOSI
   #endif
+
+
 #endif
 
 /*
 Инита нет. Подтяжка на плате
-
 */
 
 #define MKS_WIFI
 #ifdef MKS_WIFI
  #undef PLATFORM_M997_SUPPORT
+#endif
  #define MKS_WIFI_IO0                       PA8
  #define MKS_WIFI_IO4                       PC7
  #define MKS_WIFI_IO_RST                    PA5
+
+#define SPI_FLASH
+#if ENABLED(SPI_FLASH)
+	#define 	W25QXX_CS_PIN		PB12
+	#define 	W25QXX_MOSI_PIN		PB15
+	#define 	W25QXX_MISO_PIN		PB14
+	#define 	W25QXX_SCK_PIN		PB13
 #endif
 

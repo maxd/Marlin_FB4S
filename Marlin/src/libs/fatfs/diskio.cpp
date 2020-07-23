@@ -70,7 +70,7 @@ uint8_t res=0;
 	if(pdrv == DEV_SD){
 	
 		if(((uint32_t)buff % 4) != 0){
-			DEBUG("Buffer not aligned");
+			//DEBUG("Buffer not aligned");
 			while (count--){
 
 			res=SD_transfer((uint8_t *)buf_copy, (uint32_t) sector, 1, SD2UM);
@@ -118,7 +118,7 @@ uint8_t res;
 	if(pdrv == DEV_SD){
 
 		if(((uint32_t)buff % 4) != 0){
-			DEBUG("Buffer not aligned");
+			//DEBUG("Buffer not aligned");
 			while (count--){
 				memcpy((uint8_t *)buf_copy,(uint8_t *)buff,512);
 

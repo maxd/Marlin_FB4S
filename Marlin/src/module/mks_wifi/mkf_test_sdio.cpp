@@ -1,3 +1,4 @@
+#ifdef MKS_WIFI
 #include "mks_test_sdio.h"
 #include "../../MarlinCore.h"
 #include "../../inc/MarlinConfig.h"
@@ -21,3 +22,5 @@ void mks_test_sdio(void){
     DEBUG("Finish sdio test");
 
 }
+
+#endif

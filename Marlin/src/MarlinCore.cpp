@@ -31,7 +31,11 @@
 #include "MarlinCore.h"
 
 #include "core/utility.h"
-#include "lcd/ultralcd.h"
+#ifdef TFT_LITTLE_VGL_UI
+  #include "lcd/extui/mks_ui/tft_init.h"
+#else
+  #include "lcd/ultralcd.h"
+#endif
 #include "module/motion.h"
 #include "module/planner.h"
 #include "module/stepper.h"
@@ -676,8 +680,12 @@ void idle(
     max7219.idle_tasks();
   #endif
 
-  ui.update();
-
+  #if ENABLED(TFT_LITTLE_VGL_UI)
+	  tft_update();
+  #else
+    ui.update();
+  #endif
+  
   #if ENABLED(HOST_KEEPALIVE_FEATURE)
     gcode.host_keepalive();
   #endif
@@ -744,10 +752,14 @@ void idle(
 void kill(PGM_P const lcd_error/*=nullptr*/, PGM_P const lcd_component/*=nullptr*/, const bool steppers_off/*=false*/) {
   thermalManager.disable_all_heaters();
 
-  SERIAL_ERROR_MSG(STR_ERR_KILLED);
+  //SERIAL_ERROR_MSG(STR_ERR_KILLED);
+
+  #if ENABLED(TFT_LITTLE_VGL_UI)
+    tft_kill_screen();
+  #endif
 
   #if HAS_DISPLAY
-    ui.kill_screen(lcd_error ?: GET_TEXT(MSG_KILLED), lcd_component ?: NUL_STR);
+      ui.kill_screen(lcd_error ?: GET_TEXT(MSG_KILLED), lcd_component ?: NUL_STR);
   #else
     UNUSED(lcd_error);
     UNUSED(lcd_component);
@@ -816,7 +828,9 @@ void stop() {
 
   if (IsRunning()) {
     SERIAL_ERROR_MSG(STR_ERR_STOPPED);
+    #if DISABLED(TFT_LITTLE_VGL_UI)
     LCD_MESSAGEPGM(MSG_STOPPED);
+    #endif
     safe_delay(350);       // allow enough time for messages to get out before stopping
     marlin_state = MF_STOPPED;
   }
@@ -966,9 +980,10 @@ void setup() {
   #if ENABLED(USE_CONTROLLER_FAN)     // Set up fan controller to initialize also the default configurations.
     SETUP_RUN(controllerFan.setup());
   #endif
-
+  #if DISABLED(TFT_LITTLE_VGL_UI)
   SETUP_RUN(ui.init());
   SETUP_RUN(ui.reset_status());       // Load welcome message early. (Retained if no errors exist.)
+  #endif
 
   #if HAS_SPI_LCD && ENABLED(SHOW_BOOTSCREEN)
     SETUP_RUN(ui.show_bootscreen());
@@ -1165,6 +1180,8 @@ void setup() {
   #if ENABLED(MKS_WIFI)
     mks_wifi_init();
   #endif
+
+    mks_lcd_start();
 
   marlin_state = MF_RUNNING;
 

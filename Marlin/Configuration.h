@@ -408,7 +408,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -1325,7 +1325,7 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-#define LCD_BED_LEVELING
+//#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -1468,7 +1468,7 @@ EEPROM_SD
 EEPROM_AT24C16
 EEPROM_W25Q
 */
-#define EEPROM_SD
+#define EEPROM_W25Q
 
 #if ENABLED(EEPROM_AT24C16)
 #undef SDCARD_EEPROM_EMULATION
@@ -2147,7 +2147,7 @@ EEPROM_W25Q
 //
 // FSMC display (MKS Robin, Alfawise U20, JGAurora A5S, REXYZ A1, etc.)
 //
-#define FSMC_GRAPHICAL_TFT
+//#define FSMC_GRAPHICAL_TFT
 #if ENABLED(FSMC_GRAPHICAL_TFT)
 //  #define FSMC_UPSCALE 2 //2x upscaler for 320x240 displays (default)
   #define FSMC_UPSCALE 3 //3x upscaler for 480x320 displays
@@ -2160,7 +2160,7 @@ EEPROM_W25Q
 //
 // ADS7843/XPT2046 ADC Touchscreen such as ILI9341 2.8
 //
-#define TOUCH_BUTTONS
+//#define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus

@@ -21,6 +21,16 @@
 
 #if ENABLED(TOUCH_BUTTONS)
 
+#define BLEN_A 0
+#define BLEN_B 1
+
+#define EN_A _BV(BLEN_A)
+#define EN_B _BV(BLEN_B)
+
+#define BLEN_C 2
+#define EN_C _BV(BLEN_C)
+
+
 #include "xpt2046.h"
 #include "../../inc/MarlinConfig.h"
 
