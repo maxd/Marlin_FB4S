@@ -1427,8 +1427,8 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT (0)    // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT (0)    // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
+  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
 #endif
 
 // Homing speeds (mm/m)
@@ -1576,9 +1576,12 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { (X_MIN_POS + 2), (Y_MAX_POS - 120), 50 }
+  #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
+  //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
+  //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
+  #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
   #define NOZZLE_PARK_XY_FEEDRATE 100   // (mm/s) X and Y axes feedrate (also used for delta Z axis)
-  #define NOZZLE_PARK_Z_FEEDRATE 5      // (mm/s) Z axis feedrate (not used for delta printers)
+  #define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
 #endif
 
 /**
@@ -2199,6 +2202,22 @@
 //  #define FSMC_UPSCALE 2 //2x upscaler for 320x240 displays (default)
   #define FSMC_UPSCALE 3 //3x upscaler for 480x320 displays
 #endif
+//
+// TFT LVGL UI
+//
+// Using default MKS icons and fonts from: https://git.io/JJvzK
+// Just copy the 'assets' folder from the build directory to the
+// root of your SD card, together with the compiled firmware.
+//
+//#define TFT_LVGL_UI_FSMC  // Robin nano v1.2 uses FSMC
+//#define TFT_LVGL_UI_SPI   // Robin nano v2.0 uses SPI
+
+//
+// Anycubic Mega TFT (AI3M)
+//
+//#define ANYCUBIC_TFT_MODEL
+//#define ANYCUBIC_TFT_DEBUG
+
 //
 // TFT LVGL UI
 //
