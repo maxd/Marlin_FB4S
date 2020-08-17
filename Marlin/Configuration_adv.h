@@ -1116,6 +1116,10 @@
   // Enable this option and set to HIGH if your SD cards are incorrectly detected.
   #define SD_DETECT_STATE HIGH
 
+  //#define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
+
+  #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
+
   #define SD_FINISHED_STEPPERRELEASE true   // Disable steppers when SD Print is finished
   #define SD_FINISHED_RELEASECOMMAND "M84"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
@@ -3168,7 +3172,7 @@
 /**
  * User-defined menu items that execute custom GCode
  */
-//#define CUSTOM_USER_MENUS
+#define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   //#define CUSTOM_USER_MENU_TITLE "Custom Commands"
   #define USER_SCRIPT_DONE "M117 User Script Done"

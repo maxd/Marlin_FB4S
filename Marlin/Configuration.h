@@ -877,6 +877,9 @@
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
 
+// Force the use of the probe for Z-axis homing
+//#define USE_PROBE_FOR_Z_HOMING
+
 /**
  * Z_MIN_PROBE_PIN
  *
@@ -2202,6 +2205,22 @@
 //  #define FSMC_UPSCALE 2 //2x upscaler for 320x240 displays (default)
   #define FSMC_UPSCALE 3 //3x upscaler for 480x320 displays
 #endif
+//
+// TFT LVGL UI
+//
+// Using default MKS icons and fonts from: https://git.io/JJvzK
+// Just copy the 'assets' folder from the build directory to the
+// root of your SD card, together with the compiled firmware.
+//
+//#define TFT_LVGL_UI_FSMC  // Robin nano v1.2 uses FSMC
+//#define TFT_LVGL_UI_SPI   // Robin nano v2.0 uses SPI
+
+//
+// Anycubic Mega TFT (AI3M)
+//
+//#define ANYCUBIC_TFT_MODEL
+//#define ANYCUBIC_TFT_DEBUG
+
 //
 // TFT LVGL UI
 //
